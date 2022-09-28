@@ -7,19 +7,18 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 // import './App.css';
-
 import React, { useState, useEffect } from 'react';
+import ThemeCard from './components/ThemeCard.jsx'
 const axios = require('axios');
 const urlLink = 'http://localhost:3001';
 
 function App() {
-  const [themes, setThemes] = useState(['Architecture', 'Batman','Creator', 'Disney', 'Harry Potter', 'Ideas', 'Jurassic World', 'Modular Buildings', 'Star Wars']);
   const [allThemes, setAllThemes] = useState([]);
 
   useEffect(() => {
     axios.get(`${urlLink}/themes`)
       .then((result) => {
-        console.log('what are the themes', result.data);
+        // console.log('what are the themes', result.data);
         setAllThemes(() => ( [...result.data] ));
       })
       .catch((err) => {
@@ -42,24 +41,17 @@ function App() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#link">Themes</Nav.Link>
+              {/* <Nav.Link href="#link">Themes</Nav.Link> */}
               <NavDropdown title="Themes" id="basic-nav-dropdown">
-                {allThemes.map(theme => {
-                  return(
-                    <NavDropdown.Item href="#action/3.1">
-                      {theme.name}
-                    </NavDropdown.Item>
-                  )
-                })}
-                {/* <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  All Themes
-                </NavDropdown.Item> */}
+                <div style={{ height: "30vh", overflowY: "auto" }}>
+                  {allThemes.map(theme => {
+                    return(
+                      <NavDropdown.Item href="#action/3.1" id={theme.id} onClick={searchTheme}>
+                        {theme.name}
+                      </NavDropdown.Item>
+                    )
+                  })}
+                </div>
               </NavDropdown>
             </Nav>
             <Form className="d-flex">
@@ -77,15 +69,22 @@ function App() {
       <br></br>
       <Container>
         <Row>
-          <Col sm={4}>
+          <Col sm={2}>
             <h4>Popular Themes</h4>
-            {themes.map((theme) => {
-              return (
-                <div id={theme} onClick={searchTheme}>{theme}</div>
-              )
+            {allThemes.map((theme) => {
+              if (theme.popular) {
+                return (
+                  <div key={theme.id} id={theme.id} onClick={searchTheme}>
+                    {theme.name}
+                  </div>
+                )
+              }
             })}
           </Col>
-          <Col sm={8}>rows of different themes: sm=4</Col>
+          <Col sm={10}>
+            {/* rows of different themes: sm=4 */}
+            <ThemeCard allThemes={allThemes} searchTheme={searchTheme}/>
+          </Col>
         </Row>
         <Row>
           {/* <Col sm>sm=true</Col>

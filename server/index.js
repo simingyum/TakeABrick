@@ -14,10 +14,10 @@ app.use('/', router);
 //   res.status(200).send('got it');
 // })
 
-app.listen(process.env.PORT, (err)=> {
+app.listen(process.env.SERVERPORT, (err)=> {
   if (err) {
     console.log(err);
   } else {
-    console.log(`Listening at http://localhost:${process.env.PORT}`);
+    console.log(`Listening at http://localhost:${process.env.SERVERPORT}`);
   }
 });

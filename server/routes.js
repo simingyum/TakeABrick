@@ -5,8 +5,8 @@ let router = require('express').Router();
 let url = 'https://rebrickable.com/api/v3/lego/';
 let authorization = { headers: { 'Authorization': process.env.API_TOKEN }};
 
-router.get('/sets', (req, res) => {
-  console.log(req);
+router.get('/sets/', (req, res) => {
+  console.log("what was received in axios: ", req.originalUrl);
   axios.get(`${url}${req.originalUrl}`, authorization)
     .then((result) => {
       res.status(200).send(result.data);
