@@ -1,16 +1,12 @@
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import CardGroup from 'react-bootstrap/CardGroup';
+import { Link } from "react-router-dom";
 
-function SetCard({ set_num, name, year, parts, img }) {
-
-  const clickCard = (event) => {
-
-  }
+function SetCard ({ set_num, name, year, parts, img }) {
 
   return (
+    <Link to={`/set/${set_num}`} style={{ textDecoration: 'none' }}>
     <Col>
       <CardGroup>
       <Card
@@ -19,39 +15,37 @@ function SetCard({ set_num, name, year, parts, img }) {
         border='warning'
         id={set_num}
       >
-
         <Card.Img
           variant="top"
           style={{width: "100%", height: "60%", objectFit: "contain"}}
           src={img} id={set_num}
         />
-        <Card.Body>
+        <Card.Body id={set_num}>
           <Card.Title id={set_num}> {name} </Card.Title>
           <Card.Text>
-            <table style={{width: '100%'}}>
-            <tbody>
+            <table style={{width: '100%'}} id={set_num}>
+            <tbody id={set_num}>
               <tr>
-                <td>Set Number: </td>
-                <td>{set_num}</td>
+                <td id={set_num}>Set Number: </td>
+                <td id={set_num}>{set_num}</td>
               </tr>
               <tr>
-                <td>Number of Parts: </td>
-                <td>{parts}</td>
+                <td id={set_num}>Number of Parts: </td>
+                <td id={set_num}>{parts}</td>
               </tr>
               <tr>
-                <td>Year Released: </td>
-                <td>{year}</td>
+                <td id={set_num}>Year Released: </td>
+                <td id={set_num}>{year}</td>
               </tr>
             </tbody>
             </table>
-            {/* <div>Set Number: {set_num} </div>
-            <div>Number of Parts: {parts} </div>
-            <div>Year Released: {year} </div> */}
           </Card.Text>
+
         </Card.Body>
       </Card>
       </CardGroup>
     </Col>
+    </Link>
   );
 }
 

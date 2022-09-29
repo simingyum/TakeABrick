@@ -7,7 +7,7 @@ import SetCard from './SetCard.jsx';
 const axios = require('axios');
 const urlLink = 'http://localhost:3001';
 
-function Theme ({ selectedTheme }) {
+function Theme () {
   const params = useParams();
   const [theme, setTheme] = useState(params.id);
   const [sets, setSets] = useState([]);

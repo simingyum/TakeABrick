@@ -13,7 +13,14 @@ router.get('/sets/', (req, res) => {
     });
 });
 
-router.get('/sets/:set_num', (req, res) => {
+router.get('/:endpoint/:num', (req, res) => {
+  axios.get(`${url}${req.originalUrl}`, authorization)
+    .then((result) => {
+      res.status(200).send(result.data);
+    });
+});
+
+router.get('/sets/:set_num/:endpoint', (req, res) => {
   axios.get(`${url}${req.originalUrl}`, authorization)
     .then((result) => {
       res.status(200).send(result.data);
