@@ -32,7 +32,10 @@ function ThemeCard({ allThemes, searchTheme }) {
                     style={{width: "100%", height: "100%", objectFit: "contain"}}
                     src={theme.image_url} id={theme.id}
                   />
-                  <Card.Footer id={theme.id} style={{backgroundColor: '#FFB200'}}>
+                  <Card.Footer
+                    id={theme.id}
+                    style={{backgroundColor: '#FFB200', fontWeight: 'bold'}}
+                  >
                     {theme.name}
                   </Card.Footer>
                 </Card>

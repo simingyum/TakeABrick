@@ -8,12 +8,16 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 // import './App.css';
 import React, { useState, useEffect } from 'react';
-import ThemeCard from './components/ThemeCard.jsx'
+import { Routes, Route } from "react-router-dom";
+import ThemeCard from './components/ThemeCard.jsx';
+import Home from './components/Home.jsx';
+import Theme from './components/Theme.jsx';
 const axios = require('axios');
 const urlLink = 'http://localhost:3001';
 
 function App() {
   const [allThemes, setAllThemes] = useState([]);
+  const [selectedTheme, setSelectedTheme] = useState();
 
   useEffect(() => {
     axios.get(`${urlLink}/themes`)
@@ -30,23 +34,23 @@ function App() {
   const searchTheme = (event) => {
     console.log('i got clicked');
     console.log(event.target.id)
+    setSelectedTheme(event.target.id);
   }
 
   return (
     <>
-      <Navbar bg="warning" expand="lg">
+      <Navbar bg="warning" expand="lg" sticky='top'>
         <Container>
-          <Navbar.Brand href="#home">Take A Brick</Navbar.Brand>
+          <Navbar.Brand href="/">Take A Brick</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              {/* <Nav.Link href="#link">Themes</Nav.Link> */}
+              <Nav.Link href="/">Home</Nav.Link>
               <NavDropdown title="Themes" id="basic-nav-dropdown">
                 <div style={{ height: "30vh", overflowY: "auto" }}>
                   {allThemes.map(theme => {
                     return(
-                      <NavDropdown.Item href="#action/3.1" id={theme.id} onClick={searchTheme}>
+                      <NavDropdown.Item href={`/theme/${selectedTheme}`} id={theme.id} onClick={searchTheme}>
                         {theme.name}
                       </NavDropdown.Item>
                     )
@@ -67,7 +71,11 @@ function App() {
         </Container>
       </Navbar>
       <br></br>
-      <Container>
+      <Routes>
+        <Route path="/" element={<Home allThemes={allThemes} searchTheme={searchTheme}/>} />
+        <Route path="/theme/:id" element={<Theme selectedTheme={selectedTheme}/>} />
+      </Routes>
+      {/* <Container>
         <Row>
           <Col sm={2}>
             <h4>Popular Themes</h4>
@@ -82,16 +90,10 @@ function App() {
             })}
           </Col>
           <Col sm={10}>
-            {/* rows of different themes: sm=4 */}
             <ThemeCard allThemes={allThemes} searchTheme={searchTheme}/>
           </Col>
         </Row>
-        <Row>
-          {/* <Col sm>sm=true</Col>
-          <Col sm>sm=true</Col>
-          <Col sm>sm=true</Col> */}
-        </Row>
-      </Container>
+      </Container> */}
     </>
   );
 }
