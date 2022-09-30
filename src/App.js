@@ -1,7 +1,5 @@
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -19,7 +17,6 @@ const urlLink = 'http://localhost:3001';
 function App() {
   const [allThemes, setAllThemes] = useState([]);
   const [selectedTheme, setSelectedTheme] = useState();
-  // const [account, setAccount] = useState({ sets: [], parts: [], moc: []});
 
   useEffect(() => {
     axios.get(`${urlLink}/themes`)

@@ -5,15 +5,46 @@ import Card from 'react-bootstrap/Card';
 import CardGroup from 'react-bootstrap/CardGroup';
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
+const axios = require('axios');
+const urlLink = 'http://localhost:3001';
 
 function ListOfParts({ parts }) {
   const [favParts, setFavParts] = useState([]);
 
-  const addAPart = (event) => {
-    alert("Added to your list!");
+  const clickAPart = (event) => {
     console.log('add to account: ', event.target.id);
-
+    let selectedPart = event.target.id;
+    let alreadyAdded = false;
+    favParts.map((part) => {
+      if(part.part_num === selectedPart) {
+        alreadyAdded = true;
+      }
+    });
+    if (!alreadyAdded) {
+      axios.get(`${urlLink}/parts/${selectedPart}`)
+      .then((result) => {
+        console.log('parts detail result: ', result.data);
+        setFavParts((favParts) => ([...favParts, result.data]));
+      })
+      .catch((err) => {
+        console.log('Error on data fetching for part details:');
+        console.log(err);
+      });
+    } else {
+      alert('Item is already in your list.');
+    }
   }
+
+  useEffect(() => {
+    const favParts = JSON.parse(localStorage.getItem('favParts'));
+    if (favParts) {
+      setFavParts(favParts);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("favParts", JSON.stringify(favParts));
+  }, [favParts]);
 
   return (
     <Container>
@@ -39,7 +70,7 @@ function ListOfParts({ parts }) {
                   />
                   <Card.ImgOverlay style={{padding: '0', textAlign: 'right'}}>
                     <div>
-                      <CornerButton id={part.id} onClick={addAPart}>&#43;</CornerButton>
+                      <CornerButton id={part.part.part_num} onClick={clickAPart}>&#43;</CornerButton>
                     </div>
                   </Card.ImgOverlay>
                   <Card.Body>

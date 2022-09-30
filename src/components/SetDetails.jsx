@@ -20,7 +20,7 @@ function SetDetails () {
   useEffect(() => {
     axios.get(`${urlLink}/sets/${params.id}`)
       .then((result) => {
-        console.log('parts result: ', result);
+        // console.log('parts result: ', result);
         setOverview(() => ({...result.data}));
       })
       .catch((err) => {
@@ -30,7 +30,7 @@ function SetDetails () {
 
     axios.get(`${urlLink}/sets/${params.id}/parts`)
       .then((result) => {
-        console.log('parts result: ', result);
+        // console.log('parts result: ', result);
         setParts(() => ( [...result.data.results] ));
         setPartCount(result.data.count);
       })
@@ -41,7 +41,7 @@ function SetDetails () {
 
     axios.get(`${urlLink}/sets/${params.id}/alternates`)
     .then((result) => {
-      console.log('alternative builds result: ', result);
+      // console.log('alternative builds result: ', result);
       setAlternatives(() => ( [...result.data.results] ))
     })
     .catch((err) => {
@@ -60,7 +60,7 @@ function SetDetails () {
       <br />
       <Row>
         <Tabs
-          id="controlled-tab-example"
+          id="controlled-tab-example "
           // activeKey={key}
           // onSelect={(k) => setKey(k)}
           className="mb-3"
