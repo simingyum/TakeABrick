@@ -73,6 +73,9 @@ function SetDetails () {
           </Tab>
         </Tabs>
       </Row>
+      <br></br>
+      <br></br>
+      <br></br>
     </Container>
 
   )

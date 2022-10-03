@@ -19,7 +19,7 @@ function Home ({ allThemes, searchTheme }) {
             return (
               <Link
                 to={`/theme/${theme.id}`}
-                style={{ textDecoration: 'none', color: 'black'}}
+                style={{ textDecoration: 'none', color: '#343A40', fontSize: '1.2rem'}}
                 key={theme.id}
               >
                 <div id={theme.id} onClick={selectTheme} >
@@ -34,6 +34,9 @@ function Home ({ allThemes, searchTheme }) {
         <ThemeCard allThemes={allThemes} onClick={selectTheme} />
       </Col>
     </Row>
+    <br></br>
+    <br></br>
+    <br></br>
     </Container>
   );
 }

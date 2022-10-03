@@ -24,7 +24,7 @@ function ListOfParts({ parts }) {
   }, []);
 
   const clickAPart = (event) => {
-    console.log('add to account: ', event.target.id);
+    // console.log('add to account: ', event.target.id);
     let selectedPart = event.target.id;
     let alreadyAdded = false;
 
@@ -36,7 +36,7 @@ function ListOfParts({ parts }) {
     if (!alreadyAdded) {
       axios.get(`${urlLink}/parts/${selectedPart}`)
       .then((result) => {
-        console.log('parts detail result: ', result.data);
+        // console.log('parts detail result: ', result.data);
         setFavParts((favParts) => ([...favParts, result.data]));
         axios.post(`${urlLink}/accounts/parts`, {
           id: 1,

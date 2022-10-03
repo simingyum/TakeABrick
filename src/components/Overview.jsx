@@ -23,7 +23,7 @@ function Overview ({ overview, addASet }) {
    }, []);
 
   const clickASet = (event) => {
-    console.log('set add to account: ', event.target.id);
+    // console.log('set add to account: ', event.target.id);
     let selectedSet = event.target.id;
     let alreadyAdded = false;
 
@@ -97,10 +97,10 @@ export const ImgContainer = styled.div`
 
 const CornerButton = styled.button`
   border: none;
-  font-size: 1.8rem;
+  font-size: 2.3rem;
   font-weight: bold;
+  color: red;
   background-color: rgba(0, 0, 0, 0);
-  color: #7F8487;
   cursor: pointer;
   position: absolute;
   top: 10px;
