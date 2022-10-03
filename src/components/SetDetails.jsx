@@ -49,7 +49,7 @@ function SetDetails () {
       console.log(err);
     });
 
-  }, [params.id])
+  }, [params.id]);
 
   return (
     <Container>

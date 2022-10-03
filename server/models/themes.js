@@ -1,4 +1,4 @@
-const Theme = require('../db/mongodb.js')
+const Theme = require('../db/mongodb.js').Theme
 
 module.exports = {
   getAll: function (callback) {

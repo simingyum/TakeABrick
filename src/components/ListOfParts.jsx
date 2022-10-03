@@ -11,10 +11,25 @@ const urlLink = 'http://localhost:3001';
 function ListOfParts({ parts }) {
   const [favParts, setFavParts] = useState([]);
 
+  useEffect(() => {
+   axios.get(`${urlLink}/accounts`)
+    .then((result) => {
+      // console.log('what is being fatched: ', result.data[0]);
+      setFavParts(result.data[0].favParts);
+    }, () => {
+      console.log(favParts);
+    })
+    .catch((err) => {
+      console.log('Error on data fatching from accounts for favParts');
+      console.log(err);
+    })
+  }, []);
+
   const clickAPart = (event) => {
     console.log('add to account: ', event.target.id);
     let selectedPart = event.target.id;
     let alreadyAdded = false;
+
     favParts.map((part) => {
       if(part.part_num === selectedPart) {
         alreadyAdded = true;
@@ -25,6 +40,13 @@ function ListOfParts({ parts }) {
       .then((result) => {
         console.log('parts detail result: ', result.data);
         setFavParts((favParts) => ([...favParts, result.data]));
+        axios.post(`${urlLink}/accounts/parts`, {
+          id: 1,
+          favParts: result.data
+        })
+          .catch((err) => {
+            console.log('Error on posting to db: ', err);
+          })
       })
       .catch((err) => {
         console.log('Error on data fetching for part details:');
@@ -34,17 +56,6 @@ function ListOfParts({ parts }) {
       alert('Item is already in your list.');
     }
   }
-
-  useEffect(() => {
-    const favParts = JSON.parse(localStorage.getItem('favParts'));
-    if (favParts) {
-      setFavParts(favParts);
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("favParts", JSON.stringify(favParts));
-  }, [favParts]);
 
   return (
     <Container>

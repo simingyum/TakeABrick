@@ -10,7 +10,7 @@ function SetCard ({ set_num, name, year, parts, img }) {
     <Col>
       <CardGroup>
       <Card
-        style={{ width: '18rem', height: '25rem'}}
+        style={{ width: '20rem', height: '27rem'}}
         text='secondary'
         border='warning'
         id={set_num}
@@ -20,7 +20,7 @@ function SetCard ({ set_num, name, year, parts, img }) {
           style={{width: "100%", height: "60%", objectFit: "contain"}}
           src={img} id={set_num}
         />
-        <Card.Body id={set_num}>
+        <Card.Body id={set_num} style={{padding: "0 16px"}}>
           <Card.Title id={set_num}> {name} </Card.Title>
           <Card.Text>
             <table style={{width: '100%'}} id={set_num}>
@@ -40,7 +40,6 @@ function SetCard ({ set_num, name, year, parts, img }) {
             </tbody>
             </table>
           </Card.Text>
-
         </Card.Body>
       </Card>
       </CardGroup>

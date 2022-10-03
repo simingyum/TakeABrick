@@ -30,10 +30,6 @@ function App() {
       });
   }, []);
 
-  useEffect(() => {
-
-  }, []);
-
   const searchTheme = (event) => {
     console.log('i got clicked');
     console.log(event.target.id)

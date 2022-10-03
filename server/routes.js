@@ -31,7 +31,10 @@ router.get('/sets/:set_num/:endpoint', (req, res) => {
 // routes to get from database
 router.get('/themes', controller.themes.getAll);
 
-// router.get('/sets/')
+router.get('/accounts', controller.accounts.getAll);
+
+router.post('/accounts/parts', controller.accounts.postParts);
+
 
 
 module.exports = router;
