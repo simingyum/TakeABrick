@@ -5,17 +5,20 @@ import Tabs from 'react-bootstrap/Tabs';
 import Table from 'react-bootstrap/Table';
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
+import SetCard from './SetCard.jsx';
 const axios = require('axios');
 const urlLink = 'http://localhost:3001';
 
 function Account () {
   const [addedParts, setAddedParts] = useState([]);
+  const [addedSets, setAddedSets] = useState([]);
 
   useEffect(() => {
     axios.get(`${urlLink}/accounts`)
     .then((result) => {
       // console.log('what is being fatched: ', result.data[0]);
       setAddedParts(result.data[0].favParts);
+      setAddedSets(result.data[0].favSets);
     })
     .catch((err) => {
       console.log('Error on data fatching from accounts for favParts in account page');
@@ -26,13 +29,29 @@ function Account () {
   console.log(addedParts);
   return (
     <Container>
-      <Row>You added {addedParts.length} parts to your list.</Row>
+      <Row>You have {addedSets.length} sets and {addedParts.length} parts in your list.</Row>
       <br />
       <br />
       <Row>
         <Tabs id="controlled-tab-example " className="mb-3">
           <Tab eventKey="set" title='Favorite Sets'>
-
+          <Container>
+            <Row xs={1} s={2} md={4} className="g-4">
+              {
+                addedSets.map(({set_num, name, year, num_parts, set_img_url}) => {
+                  return(
+                    <SetCard key={set_num}
+                      set_num={set_num}
+                      name={name}
+                      year={year}
+                      parts={num_parts}
+                      img={set_img_url}
+                    />
+                  )
+                })
+              }
+            </Row>
+          </Container>
           </Tab>
           <Tab eventKey="part" title="Added Parts">
           <Table striped responsive>

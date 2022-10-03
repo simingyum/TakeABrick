@@ -4,12 +4,46 @@ import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import styled from 'styled-components';
 import React, { useState, useEffect } from 'react';
+const axios = require('axios');
+const urlLink = 'http://localhost:3001';
 
 function Overview ({ overview, addASet }) {
   const [favSets, setFavSets] = useState([]);
 
-  const clickSet = (event) => {
-    addASet(event);
+  useEffect(() => {
+    axios.get(`${urlLink}/accounts`)
+     .then((result) => {
+       // console.log('what is being fatched: ', result.data[0]);
+       setFavSets(result.data[0].favSets);
+     })
+     .catch((err) => {
+       console.log('Error on data fatching from accounts for favSets');
+       console.log(err);
+     })
+   }, []);
+
+  const clickASet = (event) => {
+    console.log('set add to account: ', event.target.id);
+    let selectedSet = event.target.id;
+    let alreadyAdded = false;
+
+    favSets.map((set) => {
+      if(set.set_num === selectedSet) {
+        alreadyAdded = true;
+      }
+    });
+    if (!alreadyAdded) {
+      setFavSets((favSets) => ([...favSets, overview]));
+      axios.post(`${urlLink}/accounts/sets`, {
+        id: 1,
+        favSets: overview
+      })
+        .catch((err) => {
+          console.log('Error on posting to db: ', err);
+        });
+    } else {
+      alert('Item is already in your list.');
+    }
   }
 
   return (
@@ -23,7 +57,7 @@ function Overview ({ overview, addASet }) {
             style={{width: "100%", height: "100%", objectFit: "contain"}}
             ></img>
           <div>
-            <CornerButton id={overview.set_num} onClick={clickSet}>&#10084;</CornerButton>
+            <CornerButton id={overview.set_num} onClick={clickASet}>&#10084;</CornerButton>
           </div>
           </ImgContainer>
         </Col>

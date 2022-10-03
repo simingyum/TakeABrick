@@ -34,7 +34,6 @@ router.get('/themes', controller.themes.getAll);
 router.get('/accounts', controller.accounts.getAll);
 
 router.post('/accounts/parts', controller.accounts.postParts);
-
-
+router.post('/accounts/sets', controller.accounts.postSets);
 
 module.exports = router;

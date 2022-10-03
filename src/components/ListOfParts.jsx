@@ -16,8 +16,6 @@ function ListOfParts({ parts }) {
     .then((result) => {
       // console.log('what is being fatched: ', result.data[0]);
       setFavParts(result.data[0].favParts);
-    }, () => {
-      console.log(favParts);
     })
     .catch((err) => {
       console.log('Error on data fatching from accounts for favParts');

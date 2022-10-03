@@ -25,5 +25,20 @@ module.exports = {
         }
       }
     )
-  }
+  },
+  postSets: function (value, callback) {
+    Account.findOneAndUpdate(
+      { id: value.id },
+      { $push: {favSets: value.favSets }},
+      { upsert: true },
+      function (err, result) {
+        if (err) {
+          console.log('something went wrong in module for themes');
+          console.log(err);
+        } else {
+          callback(null, result);
+        }
+      }
+    )
+  },
 }
